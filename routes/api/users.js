@@ -13,12 +13,12 @@ const validateLoginInput = require('../../validation/login');
 // Load User model
 const User = require('../../models/User');
 
-// @route   GET api/users/test
+// @route   GET api/v1/users/test
 // @desc    Tests users route
 // @access  Public
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
-// @route   POST api/users/register
+// @route   POST api/v1/users/register
 // @desc    Register user
 // @access  Public
 router.post('/register', (req, res) => {
@@ -61,7 +61,7 @@ router.post('/register', (req, res) => {
   });
 });
 
-// @route   GET api/users/login
+// @route   GET api/v1/users/login
 // @desc    Login User / Returning JWT Token
 // @access  Public
 router.post('/login', (req, res) => {
@@ -91,16 +91,16 @@ router.post('/login', (req, res) => {
 
         // Sign Token
         jwt.sign(
-					payload,
-					keys.secretOrKey,
-					{ expiresIn: 360000 },
-					(err, token) => {
-						res.json({
-							success: true,
-							token: token,
-						});
-					},
-				);
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 360000 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: token
+            });
+          }
+        );
       } else {
         errors.password = 'Password incorrect';
         return res.status(400).json(errors);
@@ -109,7 +109,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-// @route   GET api/users/current
+// @route   GET api/v1/users/current
 // @desc    Return current user
 // @access  Private
 router.get(

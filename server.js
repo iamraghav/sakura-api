@@ -22,6 +22,8 @@ app.use(bodyParser.json());
 const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
 mongoose
   .connect(db)
   .then(() => console.log('MongoDB Connected'))
@@ -37,7 +39,7 @@ require('./config/passport')(passport);
 app.use('/api/v1/users', users);
 app.use('/api/v1/profile', profile);
 app.use('/api/v1/posts', posts);
-
+app.use('/uploads', express.static('uploads'));
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
